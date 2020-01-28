@@ -1,0 +1,3 @@
+﻿  interface_v1.cpp
+C:\Users\Bishal\Desktop\interface\interface_v1\interface_v1\interface_v1.cpp(227,16): warning C4101: 'client': unreferenced local variable
+  interface_v1.vcxproj -> C:\Users\Bishal\Desktop\interface\interface_v1\Debug\interface_v1.exe
