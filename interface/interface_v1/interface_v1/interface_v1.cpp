@@ -1,4 +1,24 @@
-#include"header.h"
+//tcp server header file....
+#pragma comment(lib,"ws2_32.lib")
+//console header file....
+#include<stdio.h>
+#include<conio.h>
+//socket header file....
+#include<WinSock2.h>
+#include<Windows.h>
+#include <WS2tcpip.h>
+#include <string>
+#include<fstream>
+#include<iostream>
+
+
+//#define SCK_VERSION2 0x0202
+//#define DEFAULT_BUFLEN 512
+
+
+
+
+//#include"header.h"
 #include <fstream>
 using namespace std;
 int main()
@@ -92,18 +112,22 @@ int main()
 			{
 				char buf[4096];
 				string line;
-
-				
+				int sum = 0;
+				ifstream infile;
+				infile.open(file);
+				infile >> line;
+				//cout << line << endl;
 					//promt the user for some text....
 
 					//cout << ">>>> ";
 					//getline(cin, userinput);
 
-					ifstream myfile(file);
-					if (myfile.is_open())
-					{
-						while (getline(myfile, line))
-						{
+					//ifstream myfile(file);
+					//if (myfile.is_open())
+					//{
+				
+						//while (getline(myfile, line))
+					//	{
 
 							//sending data....
 
@@ -122,16 +146,16 @@ int main()
 
 
 							}
+						//}
+						//myfile.close();
+							infile.close();
+					//}
 
-						}
-						myfile.close();
-					}
+					//else
+					//{
+						//cout << "Unable to open file";
 
-					else
-					{
-						cout << "Unable to open file";
-
-					}
+					//}
 			}
 			cout << ".....TRANSFER PROCESS COMPLETED....." << endl;
 			system("pause");
@@ -201,7 +225,7 @@ int main()
 
 			sockaddr_in add; //it is a structure that stores the socket parameter data
 			add.sin_family = AF_INET;  //this stores the protocol used in the socket
-			add.sin_port = htons(54000); //it stores the port no for the socket 
+			add.sin_port = htons(54000); //it stores the port no for the socket
 			add.sin_addr.S_un.S_addr = INADDR_ANY; // it helps to bind the socket to any type of address
 
 			bind(listening, (sockaddr*)&add, sizeof(add));
@@ -249,9 +273,10 @@ int main()
 
 			if (d == 1)
 			{
+				//string buf;
 				char buf[4096];
 
-				
+
 					ZeroMemory(buf, 4096);
 
 					// wait for the client to send data....
@@ -259,17 +284,17 @@ int main()
 					if (bytesreceived == SOCKET_ERROR)
 					{
 						cerr << "....error while receiving data client disconnected...." << endl;
-						
+
 					}
 
 					if (bytesreceived == 0)
 					{
 						cout << "....client disconnected...." << endl;
-						
+
 					}
 					//write to file....
 
-					fstream new_file;
+					ofstream new_file;
 					new_file.open("received_file.txt", ios::out);
 					if (!new_file)
 					{
@@ -277,12 +302,11 @@ int main()
 					}
 					else
 					{
-
 						new_file << buf;    //Writing to file
 						new_file.close();
 					}
 					send(clientSocket, buf, bytesreceived + 1, 0);
-				
+
 
 
 			}
