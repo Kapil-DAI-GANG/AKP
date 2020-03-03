@@ -7,10 +7,21 @@
 #include<stdlib.h>
 #include<ctime>
 #include<iomanip>
+#include<cstdlib>
 #pragma comment(lib, "ws2_32.lib")
+#pragma warning(disable:4996)
+#pragma comment(lib, "user32")
 #define _CRT_SECURE_NO_WARNINGS
 void back();
 void history();
+COORD coordinate = { 0,0 }; 
+void gotoxy(int x, int y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
 int barl = 20;
 using namespace std;
 class pBar {
@@ -54,11 +65,11 @@ void dbase(char n[FILENAME_MAX])
 	time(&a);
 	ti = localtime(&a);
 	ofstream infile;
-	infile.open("database.txt");
+	infile.open("database.txt",ios::app);
 	infile << asctime(ti);
 	infile << setw(30);
 	infile << n;
-	infile << "/n";
+	infile << "\n";
 
 
 
@@ -83,7 +94,6 @@ int send()
 		cout << "waiting..." << endl;
 		WSADATA wsData;
 		WORD ver = MAKEWORD(2, 2);
-
 		if (WSAStartup(ver, &wsData) != 0) {
 			cerr << "Error starting winsock!" << endl;
 			return -1;
@@ -230,7 +240,9 @@ int receive()
 {
 	char x;
 	system("cls");
+	gotoxy(91, 22);
 	cout << "THIS IS YOUR CLIENT.." << endl;
+	gotoxy(91, 23);
 	cout << "(press y to continue and b to go back )" << endl;
 	cin >> x;
 	cin.ignore();
@@ -242,6 +254,7 @@ int receive()
 	else
 	{
 		system("cls");
+		gotoxy(91, 22);
 		cout << "...THIS IS YOUR CLIENT..." << endl;
 		WSADATA wsData;
 		WORD ver = MAKEWORD(2, 2);
@@ -260,7 +273,7 @@ int receive()
 
 		char serverAddress[NI_MAXHOST];
 		memset(serverAddress, 0, NI_MAXHOST);
-
+		gotoxy(91, 26);
 		cout << "Enter server address: ";
 		cin.getline(serverAddress, NI_MAXHOST);
 		cin.ignore();
@@ -335,13 +348,6 @@ int receive()
 					fileDownloaded += byRecv;
 				} while (fileDownloaded < fileRequestedsize);
 				file.close();
-				/*pBar bar;
-				for (int i = 0; i < 100; i++) {
-					bar.update(1); //How much new progress was added (only needed when new progress was added)
-					//Print pBar:
-					bar.print(); //This should be called more frequently than it is in this demo (you'll have to see what looks best for your program)
-					Sleep(1);
-				}*/
 				cout << endl;
 				cout << "SUCCESSFULLY RECEIVED THE FILE " << FILENAME_MAX << endl;
 
@@ -358,12 +364,22 @@ int receive()
 
 void back()
 {
+	char e;
 	int x;
+	gotoxy(91, 10);
+	cout << "KAPIL DATA EXPRESS " << endl;
+	gotoxy(91, 11);
+	cout << "Share your files at one go ........" << endl;
+	gotoxy(91,22);
 	cout << "1) send" << endl;
+	gotoxy(91, 23);
 	cout << "2) receive" << endl;
+	gotoxy(91, 24);
 	cout << "3) Display Transactions" << endl;
+	gotoxy(91, 25);
 	cout << ">>";
 	cin >> x;
+	gotoxy(91, 26);
 	cin.ignore();
 	if (x == 1)
 	{
@@ -377,24 +393,48 @@ void back()
 	{
 		history();
 	}
+	else
+	{
+		exit(2);
+	}
 }
 void history()
 {
 	string st;
-
+	char std;
+	int ij = 26;
 	ifstream outfile;
 	outfile.open("database.txt");
+	system("cls");
+	gotoxy(30, 20);
+	cout << "DATABASE SERVER::::" << endl;
+	gotoxy(30, 21);
+	cout << "---------------------------------" << endl;
 	while (!outfile.eof())
 	{
+		
 		st= outfile.get();
 		cout << st;
 	}
 	outfile.close();
-
+	cout << "\n";
+	system("pause");
+	cout << "enter 'enter' key to return back " << endl;
+	std = fgetc(stdin);
+	if (std==10)
+	{
+		system("cls");
+		back();
+	}
 
 }
 int main()
 {
+	::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
+	HANDLE hConsole;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole,31);
+	system("CLS");
 	back();
-
+	
 }
