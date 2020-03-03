@@ -16,7 +16,7 @@ void back();
 void history();
 void help();
 void about();
-COORD coordinate = { 0,0 }; 
+COORD coordinate = { 0,0 };
 void gotoxy(int x, int y)
 {
 	COORD coord;
@@ -65,7 +65,7 @@ void dbase(char n[FILENAME_MAX])
 	time(&a);
 	ti = localtime(&a);
 	ofstream infile;
-	infile.open("database.txt",ios::app);
+	infile.open("database.txt", ios::app);
 	infile << asctime(ti);
 	infile << setw(30);
 	infile << n;
@@ -78,8 +78,11 @@ int send()
 {
 	char x;
 	system("cls");
+	gotoxy(95, 28);
 	cout << "THIS IS YOUR SERVER..." << endl;
+	gotoxy(90, 29);
 	cout << "(press y to continue and b to go back )" << endl;
+	gotoxy(90, 30);
 	cin >> x;
 	cin.ignore();
 	if (x == 'b')
@@ -89,11 +92,26 @@ int send()
 	}
 	else
 	{
+		char ans;
+		gotoxy(90, 31);
+		cout << "...do you want your ip (y/n)..." << endl;
+		gotoxy(90, 32);
+		cin >> ans;
+		if (ans == 'y')
+		{
+			system("cls");
+
+			system("C:/Windows/System32/ipconfig.exe");
+
+			system("pause");
+		}
 		system("cls");
+		gotoxy(90, 28);
 		cout << "waiting..." << endl;
 		WSADATA wsData;
 		WORD ver = MAKEWORD(2, 2);
 		if (WSAStartup(ver, &wsData) != 0) {
+			gotoxy(60, 29);
 			cerr << "Error starting winsock!" << endl;
 			return -1;
 		}
@@ -101,6 +119,7 @@ int send()
 		SOCKET listenerSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 		if (listenerSock == INVALID_SOCKET) {
+			gotoxy(90, 30);
 			cerr << "Error creating listener socket! " << WSAGetLastError() << endl;
 			WSACleanup();
 			return -1;
@@ -120,6 +139,7 @@ int send()
 		SOCKET clientSock = accept(listenerSock, (sockaddr*)&clientHint, &clientSize);
 
 		if (clientSock == SOCKET_ERROR) {
+			gotoxy(90, 31);
 			cerr << "Error accept socket! " << WSAGetLastError() << endl;
 			closesocket(listenerSock);
 			WSACleanup();
@@ -130,6 +150,8 @@ int send()
 		char serv[NI_MAXSERV];
 
 		if (getnameinfo((sockaddr*)&clientHint, sizeof(clientHint), host, NI_MAXHOST, serv, NI_MAXSERV, 0) == 0) {
+			system("cls");
+			gotoxy(90, 28);
 			cout << "Succesfully Connected !!!!!!!" << endl;
 			cout << "Transfer your files and data at one go " << endl;
 			cout << "Host: " << host << " connected on port: " << serv << endl;
@@ -214,10 +236,12 @@ int send()
 				for (int i = 0; i < 100; i++) {
 					bar.update(1); //How much new progress was added (only needed when new progress was added)
 					//Print pBar:
-					bar.print(); 
+					bar.print();
 					Sleep(1);
 				}
 				cout << endl;
+				system("cls");
+				gotoxy(90, 28);
 				cout << "\n transfer succesfull " << endl;
 				cout << "\n Succesfully SENT file ::" << FILENAME_MAX;
 
@@ -243,6 +267,7 @@ int receive()
 	cout << "THIS IS YOUR CLIENT.." << endl;
 	gotoxy(91, 23);
 	cout << "(press y to continue and b to go back )" << endl;
+	gotoxy(90, 24);
 	cin >> x;
 	cin.ignore();
 	if (x == 'b')
@@ -253,11 +278,13 @@ int receive()
 	else
 	{
 		system("cls");
+		gotoxy(90, 28);
 		cout << "...THIS IS YOUR CLIENT..." << endl;
 		WSADATA wsData;
 		WORD ver = MAKEWORD(2, 2);
 
 		if (WSAStartup(ver, &wsData) != 0) {
+			gotoxy(90, 29);
 			cerr << "Error starting winsock!" << endl;
 			return -1;
 		}
@@ -265,14 +292,18 @@ int receive()
 		SOCKET clientSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 		if (clientSock == INVALID_SOCKET) {
+			gotoxy(90, 30);
 			cerr << "Error creating socket!, " << WSAGetLastError() << endl;
 			return -1;
 		}
 
 		char serverAddress[NI_MAXHOST];
 		memset(serverAddress, 0, NI_MAXHOST);
+		gotoxy(90, 31);
 		cout << "Enter server address: ";
+		gotoxy(90, 32);
 		cin.getline(serverAddress, NI_MAXHOST);
+		gotoxy(90, 33);
 		cin.ignore();
 
 		sockaddr_in hint;
@@ -288,6 +319,8 @@ int receive()
 
 
 		if (connect(clientSock, (sockaddr*)&hint, sizeof(hint)) == SOCKET_ERROR) {
+			system("cls");
+			gotoxy(90, 28);
 			cerr << "Error connect to server!, " << WSAGetLastError() << endl;
 			closesocket(clientSock);
 			WSACleanup();
@@ -309,6 +342,7 @@ int receive()
 		do {
 			int fileDownloaded = 0;
 			memset(fileRequested, 0, FILENAME_MAX);
+			gotoxy(90, 28);
 			cout << "Enter file name: " << endl;
 			cin.getline(fileRequested, FILENAME_MAX);
 
@@ -346,10 +380,13 @@ int receive()
 				} while (fileDownloaded < fileRequestedsize);
 				file.close();
 				cout << endl;
+				system("cls");
+				gotoxy(90, 28);
 				cout << "SUCCESSFULLY RECEIVED THE FILE " << FILENAME_MAX << endl;
 
 			}
 			else if (codeAvailable == 404) {
+				gotoxy(90, 30);
 				cout << "Can't open file or file not found!" << endl;
 			}
 		} while (!clientClose);
@@ -366,36 +403,38 @@ void back()
 	char x;
 	char ca;
 	system("cls");
-	gotoxy(55, 15);
+	gotoxy(90, 10);
+	cout << "kAPIL DAI AND GANG EXPRESS" << endl;
+	gotoxy(80, 15);
 	cout << "\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 SELECT MODES \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
-	gotoxy(55, 18);
+	gotoxy(80, 18);
 	cout << "\xAF\xAF 1. SEND  \n";
-	gotoxy(55, 21);
+	gotoxy(80, 21);
 	cout << "\xAF\xAF 2. RECEIVE\n";
-	gotoxy(55, 24);
+	gotoxy(80, 24);
 	cout << "\xAF\xAF 3. VIEW TRANSACTION \n";
-	gotoxy(55, 26);
+	gotoxy(80, 26);
 	cout << "\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
 	for (j = 15; j < 26; j++)
 	{
-		gotoxy(99, j);
+		gotoxy(124, j);
 		cout << "\xB2\xB2";
 	}
 	for (j = 16; j < 26; j++)
 	{
 		if (j != 18 && j != 21 && j != 24)
 		{
-			gotoxy(55, j);
+			gotoxy(80, j);
 			cout << "\xB2\xB2";
 		}
 	}
-	gotoxy(0, 32);
+	gotoxy(93, 32);
 	cout << "Press 'h' for help " << endl;
-	gotoxy(0, 33);
+	gotoxy(93, 33);
 	cout << "Press 'a' for about" << endl;
-	gotoxy(0, 35);
+	gotoxy(93, 35);
 	cout << "Press 'e' for exit" << endl;
-	gotoxy(0, 36);
+	gotoxy(93, 36);
 
 	cin >> x;
 	if (x == '1')
@@ -418,7 +457,7 @@ void back()
 	{
 		about();
 	}
-	else if (x=='e')
+	else if (x == 'e')
 	{
 		exit(2);
 	}
@@ -431,14 +470,14 @@ void history()
 	ifstream outfile;
 	outfile.open("database.txt");
 	system("cls");
-	gotoxy(30, 20);
+	gotoxy(80, 20);
 	cout << "DATABASE SERVER::::" << endl;
-	gotoxy(30, 21);
+	gotoxy(80, 21);
 	cout << "---------------------------------" << endl;
 	while (!outfile.eof())
 	{
-		
-		st= outfile.get();
+
+		st = outfile.get();
 		cout << st;
 	}
 	outfile.close();
@@ -446,7 +485,7 @@ void history()
 	system("pause");
 	cout << "enter 'enter' key to return back " << endl;
 	std = fgetc(stdin);
-	if (std==10)
+	if (std == 10)
 	{
 		system("cls");
 		back();
@@ -456,27 +495,46 @@ void history()
 void help()
 {
 	system("cls");
+
+	gotoxy(90, 20);
 	cout << "~~~~~~~HELP~~~~~~~~~~~~ " << endl;
 	cout << "\n";
+	gotoxy(60, 25);
 	cout << "1. The sender should be executed first followed by the receiver " << endl;
+	gotoxy(60, 26);
 	cout << "2. The files to be sent have to be saved in the same folder as that of 'main.cpp'." << endl;
+	gotoxy(60, 27);
 	cout << "3. For any further problems or queries, you can contact us to email : kapildaiorganization2014@gmail.com " << endl;
+	gotoxy(60, 28);
+	cout << "press any key to go to the main menu"<<endl;
+	gotoxy(60, 29);
 	getch();
 	back();
 }
 void about()
 {
 	system("cls");
-	cout << "~~~~~~ABOUT~~~~~~~~~~~~~~~" << endl;
-	cout << "\n";
+	gotoxy(100, 20);
+	cout << "~~ABOUT~~~" << endl;
+	gotoxy(60, 25);
 	cout << "This is an open source program created by THE KAPIL DAI GANG for the 3rd semestar OOP Project.  " << endl;
+	gotoxy(60, 26);
 	cout << "You can update the code and make your changes and code can be found online in 'https://github.com/Kapil-DAI-GANG/AKP'" << endl;
+	gotoxy(60, 27);
 	cout << "TEAM MEMBERS:" << endl;
-	cout << "1. Ashok Budha " << "\t\t" << "THA075BCT013" << endl;
-	cout << "2. Aashish Chapain " << "\t" << "THA075BCT002" << endl;
-	cout << "3. Bibek Khanal " << "\t" << "THA075BCT016" << endl;
-	cout << "4. Kapil Shrestha " << "\t" << "THA075BCT022" << endl;
+	gotoxy(60, 28);
+	cout << "1. Aashish Chapain \t THA075BCT002" << endl;
+	gotoxy(60, 29);
+	cout << "2. Ashok Budha     \t THA075BCT013" << endl;
+	gotoxy(60, 30);
+	cout << "3. Bibek Khanal    \t THA075BCT016" << endl;
+	gotoxy(60, 31);
+	cout << "4. Kapil Shrestha  \t THA075BCT022" << endl;
+	gotoxy(60, 32);
 	cout << "ALL RIGHTS RESERVED ..." << endl;
+	gotoxy(60, 33);
+	cout << "press any key to go to the main menu" << endl;
+	gotoxy(60, 34);
 	getch();
 	back();
 }
@@ -485,8 +543,7 @@ int main()
 	::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole,31);
+	SetConsoleTextAttribute(hConsole, 31);
 	system("CLS");
 	back();
-	
 }
