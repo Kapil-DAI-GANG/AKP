@@ -472,10 +472,10 @@ void about()
 	cout << "This is an open source program created by THE KAPIL DAI GANG for the 3rd semestar OOP Project.  " << endl;
 	cout << "You can update the code and make your changes and code can be found online in 'https://github.com/Kapil-DAI-GANG/AKP'" << endl;
 	cout << "TEAM MEMBERS:" << endl;
-	cout << "1. Ashok Budha " << "\t" << "THA075BCT013" << endl;
+	cout << "1. Ashok Budha " << "\t\t" << "THA075BCT013" << endl;
 	cout << "2. Aashish Chapain " << "\t" << "THA075BCT002" << endl;
 	cout << "3. Bibek Khanal " << "\t" << "THA075BCT016" << endl;
-	cout << "4. Kapil Shrestha " << "\t" << "THA075BCT013" << endl;
+	cout << "4. Kapil Shrestha " << "\t" << "THA075BCT022" << endl;
 	cout << "ALL RIGHTS RESERVED ..." << endl;
 	getch();
 	back();
