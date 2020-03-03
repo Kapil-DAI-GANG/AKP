@@ -10,6 +10,7 @@
 #pragma comment(lib, "ws2_32.lib")
 #define _CRT_SECURE_NO_WARNINGS
 void back();
+void history();
 int barl = 20;
 using namespace std;
 class pBar {
@@ -58,7 +59,7 @@ void dbase(char n[FILENAME_MAX])
 	infile << setw(30);
 	infile << n;
 	infile << "/n";
-	
+
 
 
 }
@@ -204,7 +205,7 @@ int send()
 				for (int i = 0; i < 100; i++) {
 					bar.update(1); //How much new progress was added (only needed when new progress was added)
 					//Print pBar:
-					bar.print(); //This should be called more frequently than it is in this demo (you'll have to see what looks best for your program)
+					bar.print(); 
 					Sleep(1);
 				}
 				cout << endl;
@@ -355,11 +356,12 @@ int receive()
 	}
 }
 
- void back()
- {
+void back()
+{
 	int x;
 	cout << "1) send" << endl;
 	cout << "2) receive" << endl;
+	cout << "3) Display Transactions" << endl;
 	cout << ">>";
 	cin >> x;
 	cin.ignore();
@@ -371,9 +373,28 @@ int receive()
 	{
 		receive();
 	}
+	else if (x == 3)
+	{
+		history();
+	}
+}
+void history()
+{
+	string st;
+
+	ifstream outfile;
+	outfile.open("database.txt");
+	while (!outfile.eof())
+	{
+		st= outfile.get();
+		cout << st;
+	}
+	outfile.close();
+
+
 }
 int main()
 {
 	back();
-	
+
 }
