@@ -78,11 +78,8 @@ int send()
 {
 	char x;
 	system("cls");
-	gotoxy(95, 28);
 	cout << "THIS IS YOUR SERVER..." << endl;
-	gotoxy(90, 29);
 	cout << "(press y to continue and b to go back )" << endl;
-	gotoxy(90, 30);
 	cin >> x;
 	cin.ignore();
 	if (x == 'b')
@@ -93,9 +90,7 @@ int send()
 	else
 	{
 		char ans;
-		gotoxy(90, 31);
 		cout << "...do you want your ip (y/n)..." << endl;
-		gotoxy(90, 32);
 		cin >> ans;
 		if (ans == 'y')
 		{
@@ -106,12 +101,10 @@ int send()
 			system("pause");
 		}
 		system("cls");
-		gotoxy(90, 28);
 		cout << "waiting..." << endl;
 		WSADATA wsData;
 		WORD ver = MAKEWORD(2, 2);
 		if (WSAStartup(ver, &wsData) != 0) {
-			gotoxy(60, 29);
 			cerr << "Error starting winsock!" << endl;
 			return -1;
 		}
@@ -119,7 +112,6 @@ int send()
 		SOCKET listenerSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 		if (listenerSock == INVALID_SOCKET) {
-			gotoxy(90, 30);
 			cerr << "Error creating listener socket! " << WSAGetLastError() << endl;
 			WSACleanup();
 			return -1;
@@ -139,7 +131,6 @@ int send()
 		SOCKET clientSock = accept(listenerSock, (sockaddr*)&clientHint, &clientSize);
 
 		if (clientSock == SOCKET_ERROR) {
-			gotoxy(90, 31);
 			cerr << "Error accept socket! " << WSAGetLastError() << endl;
 			closesocket(listenerSock);
 			WSACleanup();
@@ -151,7 +142,6 @@ int send()
 
 		if (getnameinfo((sockaddr*)&clientHint, sizeof(clientHint), host, NI_MAXHOST, serv, NI_MAXSERV, 0) == 0) {
 			system("cls");
-			gotoxy(90, 28);
 			cout << "Succesfully Connected !!!!!!!" << endl;
 			cout << "Transfer your files and data at one go " << endl;
 			cout << "Host: " << host << " connected on port: " << serv << endl;
@@ -241,7 +231,6 @@ int send()
 				}
 				cout << endl;
 				system("cls");
-				gotoxy(90, 28);
 				cout << "\n transfer succesfull " << endl;
 				cout << "\n Succesfully SENT file ::" << FILENAME_MAX;
 
@@ -263,11 +252,8 @@ int receive()
 {
 	char x;
 	system("cls");
-	gotoxy(91, 22);
 	cout << "THIS IS YOUR CLIENT.." << endl;
-	gotoxy(91, 23);
 	cout << "(press y to continue and b to go back )" << endl;
-	gotoxy(90, 24);
 	cin >> x;
 	cin.ignore();
 	if (x == 'b')
@@ -278,13 +264,11 @@ int receive()
 	else
 	{
 		system("cls");
-		gotoxy(90, 28);
 		cout << "...THIS IS YOUR CLIENT..." << endl;
 		WSADATA wsData;
 		WORD ver = MAKEWORD(2, 2);
 
 		if (WSAStartup(ver, &wsData) != 0) {
-			gotoxy(90, 29);
 			cerr << "Error starting winsock!" << endl;
 			return -1;
 		}
@@ -292,18 +276,14 @@ int receive()
 		SOCKET clientSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 		if (clientSock == INVALID_SOCKET) {
-			gotoxy(90, 30);
 			cerr << "Error creating socket!, " << WSAGetLastError() << endl;
 			return -1;
 		}
 
 		char serverAddress[NI_MAXHOST];
 		memset(serverAddress, 0, NI_MAXHOST);
-		gotoxy(90, 31);
 		cout << "Enter server address: ";
-		gotoxy(90, 32);
 		cin.getline(serverAddress, NI_MAXHOST);
-		gotoxy(90, 33);
 		cin.ignore();
 
 		sockaddr_in hint;
@@ -320,7 +300,6 @@ int receive()
 
 		if (connect(clientSock, (sockaddr*)&hint, sizeof(hint)) == SOCKET_ERROR) {
 			system("cls");
-			gotoxy(90, 28);
 			cerr << "Error connect to server!, " << WSAGetLastError() << endl;
 			closesocket(clientSock);
 			WSACleanup();
@@ -342,7 +321,6 @@ int receive()
 		do {
 			int fileDownloaded = 0;
 			memset(fileRequested, 0, FILENAME_MAX);
-			gotoxy(90, 28);
 			cout << "Enter file name: " << endl;
 			cin.getline(fileRequested, FILENAME_MAX);
 
@@ -466,7 +444,7 @@ void history()
 {
 	string st;
 	char std;
-	int ij = 26;
+	//int ij = 26;
 	ifstream outfile;
 	outfile.open("database.txt");
 	system("cls");
@@ -474,22 +452,22 @@ void history()
 	cout << "DATABASE SERVER::::" << endl;
 	gotoxy(80, 21);
 	cout << "---------------------------------" << endl;
-	while (!outfile.eof())
-	{
-
-		st = outfile.get();
-		cout << st;
-	}
-	outfile.close();
-	cout << "\n";
-	system("pause");
-	cout << "enter 'enter' key to return back " << endl;
-	std = fgetc(stdin);
-	if (std == 10)
-	{
-		system("cls");
-		back();
-	}
+		while (!outfile.eof())
+		{
+			st = outfile.get();
+			cout << st;
+		}
+		outfile.close();
+		cout << "\n";
+		system("pause");
+		cout << "enter 'enter' key to return back " << endl;
+		std = fgetc(stdin);
+		if (std == 10)
+		{
+			system("cls");
+			back();
+		}
+	
 
 }
 void help()
@@ -505,8 +483,8 @@ void help()
 	cout << "2. The files to be sent have to be saved in the same folder as that of 'main.cpp'." << endl;
 	gotoxy(60, 27);
 	cout << "3. For any further problems or queries, you can contact us to email : kapildaiorganization2014@gmail.com " << endl;
-	gotoxy(60, 28);
-	cout << "press any key to go to the main menu"<<endl;
+	gotoxy(60, 29);
+	cout << "press any key to go to the main menu" << endl;
 	gotoxy(60, 29);
 	getch();
 	back();
@@ -514,32 +492,43 @@ void help()
 void about()
 {
 	system("cls");
-	gotoxy(100, 20);
+	gotoxy(90, 20);
 	cout << "~~ABOUT~~~" << endl;
-	gotoxy(60, 25);
+	gotoxy(50, 25);
 	cout << "This is an open source program created by THE KAPIL DAI GANG for the 3rd semestar OOP Project.  " << endl;
-	gotoxy(60, 26);
+	gotoxy(50, 26);
 	cout << "You can update the code and make your changes and code can be found online in 'https://github.com/Kapil-DAI-GANG/AKP'" << endl;
-	gotoxy(60, 27);
+	gotoxy(50, 25);
 	cout << "TEAM MEMBERS:" << endl;
-	gotoxy(60, 28);
+	gotoxy(50, 28);
 	cout << "1. Aashish Chapain \t THA075BCT002" << endl;
-	gotoxy(60, 29);
+	gotoxy(50, 29);
 	cout << "2. Ashok Budha     \t THA075BCT013" << endl;
-	gotoxy(60, 30);
+	gotoxy(50, 30);
 	cout << "3. Bibek Khanal    \t THA075BCT016" << endl;
-	gotoxy(60, 31);
+	gotoxy(50, 31);
 	cout << "4. Kapil Shrestha  \t THA075BCT022" << endl;
-	gotoxy(60, 32);
+	gotoxy(50, 32);
 	cout << "ALL RIGHTS RESERVED ..." << endl;
-	gotoxy(60, 33);
+	gotoxy(50, 33);
 	cout << "press any key to go to the main menu" << endl;
-	gotoxy(60, 34);
+	gotoxy(50, 34);
 	getch();
 	back();
 }
 int main()
 {
+	fstream file;
+	file.open("database.txt");
+	file.seekg(0, ios::end);
+	long v = file.tellg();
+	if (v == 0)
+	{
+		file << "DATABASE:::";
+		file << "\n";
+	}
+	file.close();
+
 	::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 	HANDLE hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
