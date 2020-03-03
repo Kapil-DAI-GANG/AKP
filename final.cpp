@@ -362,50 +362,63 @@ int receive()
 void back()
 {
 	system("cls");
-	char e;
-	int x;
-	gotoxy(91, 10);
-	cout << "KAPIL DATA EXPRESS " << endl;
-	gotoxy(91, 11);
-	cout << "Share your files at one go ........" << endl;
-	gotoxy(91,22);
-	cout << "1) send" << endl;
-	gotoxy(91, 23);
-	cout << "2) receive" << endl;
-	gotoxy(91, 24);
-	cout << "3) Display Transactions" << endl;
-	gotoxy(91, 25);
-	cout << "4) HELP" << endl;
-	gotoxy(91, 26);
-	cout << "5) ABOUT" << endl;
-	gotoxy(91, 27);
-	cout << "PRESS ANY OTHER KEY TO EXIT " << endl;
-	gotoxy(91, 28);
-	cout << ">>";
+	int j, sp = 39;
+	char x;
+	char ca;
+	system("cls");
+	gotoxy(55, 15);
+	cout << "\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 SELECT MODES \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
+	gotoxy(55, 18);
+	cout << "\xAF\xAF 1. SEND  \n";
+	gotoxy(55, 21);
+	cout << "\xAF\xAF 2. RECEIVE\n";
+	gotoxy(55, 24);
+	cout << "\xAF\xAF 3. VIEW TRANSACTION \n";
+	gotoxy(55, 26);
+	cout << "\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
+	for (j = 15; j < 26; j++)
+	{
+		gotoxy(99, j);
+		cout << "\xB2\xB2";
+	}
+	for (j = 16; j < 26; j++)
+	{
+		if (j != 18 && j != 21 && j != 24)
+		{
+			gotoxy(55, j);
+			cout << "\xB2\xB2";
+		}
+	}
+	gotoxy(0, 32);
+	cout << "Press 'h' for help " << endl;
+	gotoxy(0, 33);
+	cout << "Press 'a' for about" << endl;
+	gotoxy(0, 35);
+	cout << "Press 'e' for exit" << endl;
+	gotoxy(0, 36);
+
 	cin >> x;
-	gotoxy(91, 26);
-	cin.ignore();
-	if (x == 1)
+	if (x == '1')
 	{
 		send();
 	}
-	else if (x == 2)
+	else if (x == '2')
 	{
 		receive();
 	}
-	else if (x == 3)
+	else if (x == '3')
 	{
 		history();
 	}
-	else if (x == 4)
+	else if (x == 'h')
 	{
 		help();
 	}
-	else if (x == 5)
+	else if (x == 'a')
 	{
 		about();
 	}
-	else
+	else if (x=='e')
 	{
 		exit(2);
 	}
@@ -459,10 +472,10 @@ void about()
 	cout << "This is an open source program created by THE KAPIL DAI GANG for the 3rd semestar OOP Project.  " << endl;
 	cout << "You can update the code and make your changes and code can be found online in 'https://github.com/Kapil-DAI-GANG/AKP'" << endl;
 	cout << "TEAM MEMBERS:" << endl;
-	cout << "1. Ashok Budha " << "/t" << "THA075BCT013" << endl;
-	cout << "2. Aashish Chapain " << "/t" << "THA075BCT002" << endl;
-	cout << "3. Bibek Khanal " << "/t" << "THA075BCT016" << endl;
-	cout << "4. Kapil Shrestha " << "/t" << "THA075BCT013" << endl;
+	cout << "1. Ashok Budha " << "\t" << "THA075BCT013" << endl;
+	cout << "2. Aashish Chapain " << "\t" << "THA075BCT002" << endl;
+	cout << "3. Bibek Khanal " << "\t" << "THA075BCT016" << endl;
+	cout << "4. Kapil Shrestha " << "\t" << "THA075BCT013" << endl;
 	cout << "ALL RIGHTS RESERVED ..." << endl;
 	getch();
 	back();
