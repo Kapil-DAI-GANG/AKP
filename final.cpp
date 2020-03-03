@@ -14,6 +14,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 void back();
 void history();
+void help();
+void about();
 COORD coordinate = { 0,0 }; 
 void gotoxy(int x, int y)
 {
@@ -56,8 +58,6 @@ private:
 	double currentProgress = 0,
 		neededProgress = 100;
 };
-
-
 void dbase(char n[FILENAME_MAX])
 {
 	time_t a;
@@ -74,7 +74,6 @@ void dbase(char n[FILENAME_MAX])
 
 
 }
-
 int send()
 {
 	char x;
@@ -254,7 +253,6 @@ int receive()
 	else
 	{
 		system("cls");
-		gotoxy(91, 22);
 		cout << "...THIS IS YOUR CLIENT..." << endl;
 		WSADATA wsData;
 		WORD ver = MAKEWORD(2, 2);
@@ -273,7 +271,6 @@ int receive()
 
 		char serverAddress[NI_MAXHOST];
 		memset(serverAddress, 0, NI_MAXHOST);
-		gotoxy(91, 26);
 		cout << "Enter server address: ";
 		cin.getline(serverAddress, NI_MAXHOST);
 		cin.ignore();
@@ -364,6 +361,7 @@ int receive()
 
 void back()
 {
+	system("cls");
 	char e;
 	int x;
 	gotoxy(91, 10);
@@ -377,6 +375,12 @@ void back()
 	gotoxy(91, 24);
 	cout << "3) Display Transactions" << endl;
 	gotoxy(91, 25);
+	cout << "4) HELP" << endl;
+	gotoxy(91, 26);
+	cout << "5) ABOUT" << endl;
+	gotoxy(91, 27);
+	cout << "PRESS ANY OTHER KEY TO EXIT " << endl;
+	gotoxy(91, 28);
 	cout << ">>";
 	cin >> x;
 	gotoxy(91, 26);
@@ -392,6 +396,14 @@ void back()
 	else if (x == 3)
 	{
 		history();
+	}
+	else if (x == 4)
+	{
+		help();
+	}
+	else if (x == 5)
+	{
+		about();
 	}
 	else
 	{
@@ -427,6 +439,33 @@ void history()
 		back();
 	}
 
+}
+void help()
+{
+	system("cls");
+	cout << "~~~~~~~HELP~~~~~~~~~~~~ " << endl;
+	cout << "\n";
+	cout << "1. The sender should be executed first followed by the receiver " << endl;
+	cout << "2. The files to be sent have to be saved in the same folder as that of 'main.cpp'." << endl;
+	cout << "3. For any further problems or queries, you can contact us to email : kapildaiorganization2014@gmail.com " << endl;
+	getch();
+	back();
+}
+void about()
+{
+	system("cls");
+	cout << "~~~~~~ABOUT~~~~~~~~~~~~~~~" << endl;
+	cout << "\n";
+	cout << "This is an open source program created by THE KAPIL DAI GANG for the 3rd semestar OOP Project.  " << endl;
+	cout << "You can update the code and make your changes and code can be found online in 'https://github.com/Kapil-DAI-GANG/AKP'" << endl;
+	cout << "TEAM MEMBERS:" << endl;
+	cout << "1. Ashok Budha " << "/t" << "THA075BCT013" << endl;
+	cout << "2. Aashish Chapain " << "/t" << "THA075BCT002" << endl;
+	cout << "3. Bibek Khanal " << "/t" << "THA075BCT016" << endl;
+	cout << "4. Kapil Shrestha " << "/t" << "THA075BCT013" << endl;
+	cout << "ALL RIGHTS RESERVED ..." << endl;
+	getch();
+	back();
 }
 int main()
 {
